@@ -1,0 +1,21 @@
+html {
+	background: url('/images/background.jpg') no-repeat center center fixed;
+	background-size: cover;
+}
+
+/* Ext Neptune theme has a body background. Do Not Want */
+body, .x-body {
+	background: none;
+}
+
+.icon-add {
+	background-image: url(/images/icons/plus-circle.png) !important;
+}
+
+.icon-delete {
+	background-image: url(/images/icons/cross-circle.png) !important;
+}
+
+.icon-log-out {
+	background-image: url(/images/icons/control-power.png) !important;
+}

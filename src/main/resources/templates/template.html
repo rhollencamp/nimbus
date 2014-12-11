@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:include="${_view} :: title">Nimbus Password Manager</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+		<base th:href="@{/}"/>
+
+		<link rel="stylesheet" type="text/css" href="https://extjs.cachefly.net/ext/gpl/4.2.1/resources/css/ext-all-neptune.css"/>
+		<link href="css/global.css" rel="stylesheet"/>
+		<style type="text/css" th:include="${_view} :: css"></style>
+
+		<script type="text/javascript" src="https://extjs.cachefly.net/ext/gpl/4.2.1/ext-all.js"></script>
+		<script type="text/javascript" src="js/ZeroClipboard.min.js"></script>
+		<script type="text/javascript" src="js/global.js"></script>
+		<script type="text/javascript" th:include="${_view} :: js"></script>
+		<script type="text/javascript" th:inline="javascript">
+			// ExtJS global config
+			Ext.BLANK_IMAGE_URL = 'https://extjs.cachefly.net/ext/gpl/4.2.1/resources/themes/images/default/tree/s.gif';
+			Ext.tip.QuickTipManager.init();
+			
+			// add CSRF token to any POST request
+			Ext.Ajax.on('beforerequest', function(conn, options, eOpts) {
+				if ('POST' === options.method) {
+					options.headers = options.headers || {};
+					options.headers[ [[${_csrf.headerName}]] ] = [[${_csrf.token}]];
+				}
+			});
+
+			// ZeroClipboard global config
+			ZeroClipboard.config({moviePath: 'static/ZeroClipboard.swf'});
+		</script>
+	</head>
+	<body>
+		<div th:include="${_view} :: body">TODO write content</div>
+	</body>
+</html>
