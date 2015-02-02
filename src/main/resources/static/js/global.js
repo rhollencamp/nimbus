@@ -290,7 +290,7 @@ Ext.define('Ext.app.LogIn', {
 	logInSuccess: function(form, action) {
 		this.up('window').close();
 		Ext.getBody().mask(this.i18n.message.redirecting);
-		window.location.href = action.result.url;
+		window.location.href = action.result.data;
 	},
 
 	logInFailure: function(form, action) {
@@ -502,7 +502,7 @@ Ext.define('Ext.app.PasswordPanel', {
 							xtype: 'box',
 							autoEl: {
 								tag: 'img',
-								src: 'static/icons/binocular.png'
+								src: 'images/icons/binocular.png'
 							}
 						}, {
 							xtype: 'clearabletextfield',
@@ -535,14 +535,14 @@ Ext.define('Ext.app.PasswordPanel', {
 					hideable: false,
 					items: [{
 							clipboard: true,
-							icon: 'static/icons/document-copy.png',
+							icon: 'images/icons/document-copy.png',
 							tooltip: this.i18n.tooltip.copyPassword
 						}, {
-							icon: 'static/icons/magnifier.png',
+							icon: 'images/icons/magnifier.png',
 							tooltip: this.i18n.tooltip.viewSecret,
 							handler: Ext.Function.bind(this.viewSecret, this)
 						}, {
-							icon: 'static/icons/cross-circle.png',
+							icon: 'images/icons/cross-circle.png',
 							tooltip: this.i18n.tooltip.deleteSecret,
 							handler: Ext.Function.bind(this.deleteSecret, this)
 					}]

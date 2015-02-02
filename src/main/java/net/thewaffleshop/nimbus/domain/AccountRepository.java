@@ -3,7 +3,6 @@ package net.thewaffleshop.nimbus.domain;
 import org.springframework.data.repository.Repository;
 
 
-
 /**
  *
  * @author rhollencamp

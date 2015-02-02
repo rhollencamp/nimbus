@@ -36,6 +36,15 @@ public class LoginController
 		return new TemplateModelAndView("login");
 	}
 
+	@RequestMapping(value = "/authenticationSuccess", method = RequestMethod.POST)
+	@ResponseBody
+	public Object authenticationSuccess()
+	{
+		ExtAjaxResponse ret = new ExtAjaxResponse(true);
+		ret.setData("/dashboard");
+		return ret;
+	}
+
 	@RequestMapping(value = "/authenticationFailure", method = RequestMethod.POST)
 	@ResponseBody
 	public Object authenticationFailure(HttpServletRequest request, HttpServletResponse response)

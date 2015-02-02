@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:fragment="title">Dashboard - Nimbus</title>
+		<style type="text/css" th:fragment="css">
+			#content {
+				width: 1000px;
+				margin-top: 2em;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+			}
+		</style>
+		<script type="text/javascript" th:fragment="js">
+			<!--
+			Ext.onReady(function () {
+				Ext.create('Ext.app.PasswordPanel', {
+					renderTo: Ext.getElementById("content")
+				});
+			});
+			//-->
+		</script>
+	</head>
+
+	<body>
+		<div th:fragment="body">
+			<div id="content"></div>
+		</div>
+	</body>
+</html>

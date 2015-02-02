@@ -10,11 +10,28 @@
 
 	<name>Nimbus</name>
 	<description>Nimbus Cloud</description>
+	<url>https://github.com/rhollencamp/nimbus</url>
+
+	<scm>
+		<url>https://github.com/rhollencamp/nimbus</url>
+	</scm>
+
+	<organization>
+		<name>The Waffleshop</name>
+		<url>http://www.thewaffleshop.net</url>
+	</organization>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>net.thewaffleshop.nimbus.NimbusWebApplication</start-class>
+		<java.version>1.7</java.version>
+		<tomcat.version>8.0.17</tomcat.version>
+	</properties>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.1.9.RELEASE</version>
+		<version>1.2.1.RELEASE</version>
 		<relativePath/>
 	</parent>
 
@@ -22,6 +39,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,25 +70,46 @@
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>net.thewaffleshop.nimbus.NimbusWebApplication</start-class>
-		<java.version>1.7</java.version>
-		<tomcat.version>8.0.15</tomcat.version>
-	</properties>
+	<profiles>
+		<profile>
+			<id>dev</id>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<jvmArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005</jvmArguments>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+			<dependencies>
+				<dependency>
+					<groupId>org.hsqldb</groupId>
+					<artifactId>hsqldb</artifactId>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<arguments>
+								<argument>--spring.profiles.active=dev</argument>
+							</arguments>
+							<jvmArguments>-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005 -Dcom.sun.management.jmxremote.port=9999 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</jvmArguments>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>net.thewaffleshop</groupId>
+						<artifactId>jmx-maven-plugin</artifactId>
+						<version>1.0-SNAPSHOT</version>
+						<configuration>
+							<url>service:jmx:rmi:///jndi/rmi://localhost:9999/jmxrmi</url>
+							<objectName>org.springframework.boot:type=Endpoint,name=shutdownEndpoint</objectName>
+							<method>shutdown</method>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
