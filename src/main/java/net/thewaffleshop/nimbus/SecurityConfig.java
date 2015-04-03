@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 		http.authorizeRequests()
 				.antMatchers("/authenticationFailure").permitAll()
 				.antMatchers("/register").permitAll()
+				.antMatchers("/webjarslocator/**").permitAll()
 				.anyRequest().hasRole("USER");
 
 		// configure login

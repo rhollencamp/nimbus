@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.webjars.WebJarAssetLocator;
 
 
 /**
@@ -25,5 +26,11 @@ public class AppConfig
 	public PasswordEncoder passwordEncoder()
 	{
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public WebJarAssetLocator assetLocator()
+	{
+		return new WebJarAssetLocator();
 	}
 }

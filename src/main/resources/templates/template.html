@@ -7,17 +7,17 @@
 
 		<base href="/" th:href="@{/}"/>
 
-		<link rel="stylesheet" type="text/css" href="https://extjs.cachefly.net/ext/gpl/4.2.1/resources/css/ext-all-neptune.css"/>
+		<link rel="stylesheet" type="text/css" href="/webjarslocator/extjs/resources/css/ext-all-neptune.css"/>
 		<link href="css/global.css" rel="stylesheet"/>
 		<style type="text/css" th:include="${_view} :: css"></style>
 
-		<script type="text/javascript" src="https://extjs.cachefly.net/ext/gpl/4.2.1/ext-all.js"></script>
-		<script type="text/javascript" src="js/ZeroClipboard.min.js"></script>
+		<script type="text/javascript" src="/webjarslocator/extjs/ext-all.js"></script>
+		<script type="text/javascript" src="/webjarslocator/zeroclipboard/ZeroClipboard.min.js"></script>
 		<script type="text/javascript" src="js/global.js"></script>
 		<script type="text/javascript" th:include="${_view} :: js"></script>
 		<script type="text/javascript" th:inline="javascript">
 			// ExtJS global config
-			Ext.BLANK_IMAGE_URL = 'https://extjs.cachefly.net/ext/gpl/4.2.1/resources/themes/images/default/tree/s.gif';
+			Ext.BLANK_IMAGE_URL = '/webjarslocator/extjs/resources/themes/images/default/tree/s.gif';
 			Ext.tip.QuickTipManager.init();
 			
 			// add CSRF token to any POST request
@@ -29,7 +29,7 @@
 			});
 
 			// ZeroClipboard global config
-			ZeroClipboard.config({moviePath: 'static/ZeroClipboard.swf'});
+			ZeroClipboard.config({moviePath: '/webjarslocator/zeroclipboard/ZeroClipboard.swf'});
 		</script>
 	</head>
 	<body>
