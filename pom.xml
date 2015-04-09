@@ -21,6 +21,22 @@
 		<url>http://www.thewaffleshop.net</url>
 	</organization>
 
+	<developers>
+		<developer>
+			<id>rhollencamp</id>
+			<name>Robert Hollencamp</name>
+			<organization>The Waffleshop</organization>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>net.thewaffleshop.nimbus.NimbusWebApplication</start-class>
