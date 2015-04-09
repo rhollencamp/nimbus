@@ -1,6 +1,5 @@
 package net.thewaffleshop.nimbus.web;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.thewaffleshop.nimbus.service.AccountService;
@@ -8,6 +7,7 @@ import net.thewaffleshop.nimbus.service.ReportableException;
 import net.thewaffleshop.nimbus.service.ReportableFieldException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class LoginController
 {
 	private final Log log = LogFactory.getLog (LoginController.class );
 
-	@Resource
+	@Autowired
 	private AccountService accountService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)

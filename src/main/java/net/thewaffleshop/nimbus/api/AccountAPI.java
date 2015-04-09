@@ -58,16 +58,17 @@ public class AccountAPI
 			throw new IllegalStateException();
 		}
 
-		byte[] secretKey = encryptionAPI.serializeSecretKey(encryptionAPI.createSecretKey());
-
-		// encrypt the secret key
+		// create a secret key from the user's password
 		byte[] salt = encryptionAPI.generateSalt();
-		byte[] iv = encryptionAPI.generateIv();
-		SecretKey sk = encryptionAPI.createSecretKey(password, salt);
-		byte[] esk = encryptionAPI.encrypt(sk, iv, secretKey);
+		SecretKey passwordSecretKey = encryptionAPI.createSecretKey(password, salt);
+
+		// create a random secret key used to encrypt data
+		byte[] secretKey = encryptionAPI.serializeSecretKey(encryptionAPI.createSecretKey());
+		// and encrypt it using the user's password
+		EncryptedData ed = encryptionAPI.encrypt(passwordSecretKey, secretKey);
 
 		// store on account
-		account.setSecretKeyEncrypted(new EncryptedData(esk, iv));
+		account.setSecretKeyEncrypted(ed);
 		account.setSalt(salt);
 	}
 

@@ -1,5 +1,6 @@
 package net.thewaffleshop.nimbus;
 
+import net.thewaffleshop.nimbus.security.SecurityConfig;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

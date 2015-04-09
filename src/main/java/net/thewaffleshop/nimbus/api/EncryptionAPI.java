@@ -9,6 +9,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+import net.thewaffleshop.nimbus.domain.EncryptedData;
 import org.springframework.stereotype.Component;
 
 
@@ -128,6 +129,20 @@ public class EncryptionAPI
 	}
 
 	/**
+	 * Encrypt
+	 *
+	 * @param secretKey
+	 * @param data
+	 * @return
+	 */
+	public EncryptedData encrypt(SecretKey secretKey, byte[] data)
+	{
+		byte[] iv = generateIv();
+		byte[] encryptedData = encrypt(secretKey, iv, data);
+		return new EncryptedData(encryptedData, iv);
+	}
+
+	/**
 	 * Decrypt
 	 *
 	 * @param secretKey
@@ -146,5 +161,19 @@ public class EncryptionAPI
 		} catch (GeneralSecurityException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	/**
+	 * Decrypt
+	 *
+	 * @param secretKey
+	 * @param encryptedData
+	 * @return 
+	 */
+	public byte[] decrypt(SecretKey secretKey, EncryptedData encryptedData)
+	{
+		byte[] iv = encryptedData.getIv();
+		byte[] secret = encryptedData.getData();
+		return decrypt(secretKey, iv, secret);
 	}
 }

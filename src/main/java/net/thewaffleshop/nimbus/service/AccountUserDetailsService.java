@@ -1,12 +1,12 @@
 package net.thewaffleshop.nimbus.service;
 
-import java.util.HashSet;
-import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
 import net.thewaffleshop.nimbus.domain.Account;
 import net.thewaffleshop.nimbus.domain.AccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountUserDetailsService implements UserDetailsService
 {
-	@Resource
+	@Autowired
 	private AccountRepository accountRepository;
 
 	@Override
@@ -32,9 +32,29 @@ public class AccountUserDetailsService implements UserDetailsService
 			throw new UsernameNotFoundException(username);
 		}
 
-		HashSet<GrantedAuthority> roles = new HashSet<>(1);
-		roles.add(new SimpleGrantedAuthority("USER"));
-		User ret = new User(account.getUserName(), account.getPasswordHash(), AuthorityUtils.createAuthorityList("ROLE_USER"));
+		List<GrantedAuthority> roles = AuthorityUtils.createAuthorityList("ROLE_USER");
+		AccountUser ret = new AccountUser(account.getUserName(), account.getPasswordHash(), roles);
+		ret.setAccount(account);
 		return ret;
+	}
+
+	public static final class AccountUser extends User
+	{
+		private Account account;
+
+		public AccountUser(String username, String password, Collection<? extends GrantedAuthority> authorities)
+		{
+			super(username, password, authorities);
+		}
+
+		public Account getAccount()
+		{
+			return account;
+		}
+
+		public void setAccount(Account account)
+		{
+			this.account = account;
+		}
 	}
 }

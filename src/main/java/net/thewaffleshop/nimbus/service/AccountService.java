@@ -33,8 +33,8 @@ public class AccountService
 	{
 		Account account = accountRepository.findByUserName(userName);
 		if (account == null) {
-			// checking password takes a significant amount of time, so perform the check anyways to make this request about as
-			// long as if an account did exist; this prevents timing attacks
+			// checking password takes a significant amount of time, so perform the check anyways to make this request
+			// about as long as if an account did exist; this prevents timing attacks
 			Account tmp = new Account();
 			tmp.setPasswordHash(FOO_BCRYPT);
 			accountAPI.checkPassword(tmp, "BAR");
