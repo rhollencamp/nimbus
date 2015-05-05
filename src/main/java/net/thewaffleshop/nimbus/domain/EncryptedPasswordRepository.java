@@ -40,4 +40,20 @@ public interface EncryptedPasswordRepository extends Repository<EncryptedPasswor
 	 * @return 
 	 */
 	List<EncryptedPassword> findByAccount(Account account);
+
+	/**
+	 * Retrieve an entity by UID.
+	 *
+	 * @param uid must not be {@literal null}
+	 * @return entity with the given uid or {@literal null} if none found
+	 */
+	EncryptedPassword findOne(Long uid);
+
+	/**
+	 * Delete an entry by the given uid (and match account for security)
+	 *
+	 * @param account Account owning the entry
+	 * @param uid uid of the entry to delete
+	 */
+	void deleteByAccountAndUid(Account account, Long uid);
 }

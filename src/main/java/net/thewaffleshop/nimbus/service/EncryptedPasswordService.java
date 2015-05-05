@@ -48,8 +48,35 @@ public class EncryptedPasswordService
 		List<PasswordData> ret = new ArrayList<>(encryptedPasswords.size());
 		for (EncryptedPassword ep : encryptedPasswords) {
 			PasswordData pd = encryptedPasswordAPI.getPasswordData(secretKey, ep);
+			pd.uid = ep.getUid();
 			ret.add(pd);
 		}
 		return ret;
+	}
+
+	@Transactional
+	public void savePasswordData(Account account, SecretKey secretKey, PasswordData passwordData)
+	{
+		EncryptedPassword ep;
+		if (passwordData.uid != null) {
+			ep = encryptedPasswordRepository.findOne(passwordData.uid);
+			if (ep == null) {
+				throw new RuntimeException("Password not found when attempting to update");
+			}
+			if (!ep.getAccount().equals(account)) {
+				throw new RuntimeException("Attempted to update a password that does not belong to the account");
+			}
+		} else {
+			ep = new EncryptedPassword();
+			ep.setAccount(account);
+		}
+		encryptedPasswordAPI.setPasswordData(secretKey, ep, passwordData);
+		encryptedPasswordRepository.save(ep);
+	}
+
+	@Transactional
+	public void deletePasswordData(Account account, PasswordData passwordData)
+	{
+		encryptedPasswordRepository.deleteByAccountAndUid(account, passwordData.uid);
 	}
 }

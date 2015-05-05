@@ -20,6 +20,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 
 /**
@@ -85,5 +87,24 @@ public class Account extends EntityBase
 	public void setSecretKeyEncrypted(EncryptedData secretKeyEncrypted)
 	{
 		this.secretKeyEncrypted = secretKeyEncrypted;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (obj == null) {
+			return false;
+		}
+		if (obj instanceof Account == false) {
+			return false;
+		}
+		Account rhs = (Account) obj;
+		return new EqualsBuilder().append(userName, rhs.getUserName()).build();
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return new HashCodeBuilder(233, 1951).append(getUserName()).toHashCode();
 	}
 }

@@ -23,6 +23,7 @@ import net.thewaffleshop.nimbus.service.EncryptedPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -51,5 +52,26 @@ public class PasswordController
 		ExtAjaxResponse ret = new ExtAjaxResponse(true);
 		ret.setData(pds);
 		return ret;
+	}
+
+	@RequestMapping(value = "save", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtAjaxResponse savePassword(
+			@ModelAttribute("account") Account account,
+			@ModelAttribute("secretKey") SecretKey secretKey,
+			@RequestBody PasswordData passwordData)
+	{
+		encryptedPasswordService.savePasswordData(account, secretKey, passwordData);
+		return new ExtAjaxResponse(true);
+	}
+
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	@ResponseBody
+	public ExtAjaxResponse delete(
+			@ModelAttribute("account") Account account,
+			@RequestBody PasswordData passwordData)
+	{
+		encryptedPasswordService.deletePasswordData(account, passwordData);
+		return new ExtAjaxResponse(true);
 	}
 }
